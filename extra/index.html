@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Resume</title>
+    <style>
+        /* Your existing styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: lavender;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+        }
+
+        #profile-image {
+            max-width: 150px;
+            border-radius: 50%;
+            margin-bottom: 1em;
+        }
+
+        h1, p, li, a {
+            color: #333;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 2em auto;
+            background-color: #fff;
+            padding: 2em;
+            box-shadow: 0 0 10px rgba(251, 251, 251, 0.1);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .editable {
+            border: 1px solid #ddd;
+            padding: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        .editable:hover {
+            background-color: #f9f9f9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.5em 1em;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        /* Sticky Navbar Styles */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: #333;
+            padding: 0.2em 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <img src="profile1.png"margin-top: 15px; width: 50%;" alt="Profile Image" id="profile-image">
+        
+        <nav >
+            <input type="file" accept="image/*" id="image-input" class="btn">
+        </nav>
+        <nav>
+            <button onclick="updateImage()" class="btn">Update Image</button>
+        </nav>
+<hr>
+        <h1 contenteditable="true" style="color: white; font-family: Algerian">Your Name</h1>
+        <p contenteditable="true" style="color: white;">Web Developer</p><br>
+    </header>
+
+    <section>
+        <h2>Contact Information</h2>
+        <ul class="editable">
+            <li><strong>Email:</strong> <span contenteditable="true" id="email-span">your.email@example.com</span></li>
+            <li><strong>Phone:</strong> <span contenteditable="true" id="phone-span">(123) 456-7890</span></li>
+            <li><strong>LinkedIn:</strong> <span contenteditable="true" id="linkedin-span"><a
+                        href="https://www.linkedin.com/in/yourusername" target="_blank">linkedin.com/in/yourusername</a></span>
+            </li>
+            <li><strong>GitHub:</strong> <span contenteditable="true" id="github-span"><a
+                        href="https://github.com/yourusername" target="_blank">github.com/yourusername</a></span></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Education</h2>
+        <ul class="editable">
+            <li><strong>Degree in Computer Science:</strong> <span contenteditable="true" id="education-span">XYZ College, 20XX</span></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Experience</h2>
+        <ul class="editable">
+            <li>
+                <strong>Web Developer</strong><span contenteditable="true" id="experience-span"> - Company Name, Location - Date Range</span>
+                <ol>
+                    <span contenteditable="true">
+                        <li>Developed and maintained web applications using HTML, CSS, and JavaScript.</li>
+                    </span>
+                    <span contenteditable="true">
+                        <li>Collaborated with cross-functional teams to deliver high-quality software solutions.</li>
+                    </span>
+                </ol>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Skills</h2>
+        <ul class="editable">
+            <span contenteditable="true"><li id="skills-span">HTML, CSS, JavaScript</li></span>
+            <span contenteditable="true"><li>React, Vue.js</li></span>
+            <span contenteditable="true"><li>Node.js, Express.js</li></span>
+            <span contenteditable="true"><li>Git, GitHub</li></span>
+            <span contenteditable="true"><li>Responsive Web Design</li></span>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Projects</h2>
+        <ul class="editable">
+            <li>
+                <strong>Project Name</strong>
+                <span contenteditable="true" id="projects-span"><p>Description of the project goes here. Highlight key technologies and
+                        achievements.</p></span>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>References</h2>
+        <span contenteditable="true" id="references-span"><p class="editable">Available upon request.</p></span>
+    </section>
+
+    <nav>
+        <button onclick="saveAndContinue()" class="btn">Save and Continue</button>
+    </nav>
+
+    <script>
+        function updateImage() {
+            const input = document.getElementById('image-input');
+            const image = document.getElementById('profile-image');
+
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    image.src = e.target.result;
+                    // Save the image data to localStorage
+                    localStorage.setItem('profileImageData', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveAndContinue() {
+            // Save user-entered data to localStorage
+            localStorage.setItem('emailContent', document.getElementById('email-span').innerText);
+            localStorage.setItem('phoneContent', document.getElementById('phone-span').innerText);
+            localStorage.setItem('linkedinContent', document.getElementById('linkedin-span').innerHTML);
+            localStorage.setItem('githubContent', document.getElementById('github-span').innerHTML);
+            localStorage.setItem('educationContent', document.getElementById('education-span').innerText);
+            localStorage.setItem('experienceContent', document.getElementById('experience-span').innerText);
+            localStorage.setItem('skillsContent', document.getElementById('skills-span').innerText);
+            localStorage.setItem('projectsContent', document.getElementById('projects-span').innerHTML);
+            localStorage.setItem('referencesContent', document.getElementById('references-span').innerHTML);
+            // ... Add other data to save
+
+            // Redirect to the next page
+            window.location.href = 'nextpage.html';
+        }
+    </script>
+
+</body>
+
+</html>

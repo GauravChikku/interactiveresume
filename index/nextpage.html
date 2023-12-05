@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Resume</title>
+    <style>
+        /* Your existing styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: lavender;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+        }
+
+        #profile-image {
+            max-width: 150px;
+            border-radius: 50%;
+            margin-bottom: 1em;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 2em auto;
+            background-color: #fff;
+            padding: 2em;
+            box-shadow: 0 0 10px rgba(251, 251, 251, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.5em 1em;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script>
+        // Retrieve content from localStorage and update spans
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('#email-span').innerText = localStorage.getItem('emailContent') || 'Default Email';
+            document.querySelector('#phone-span').innerText = localStorage.getItem('phoneContent') || 'Default Phone';
+            document.querySelector('#linkedin-span').innerHTML = localStorage.getItem('linkedinContent') || '<a href="https://www.linkedin.com/in/defaultusername" target="_blank">linkedin.com/in/defaultusername</a>';
+            document.querySelector('#github-span').innerHTML = localStorage.getItem('githubContent') || '<a href="https://github.com/defaultusername" target="_blank">github.com/defaultusername</a>';
+            document.querySelector('#education-span').innerText = localStorage.getItem('educationContent') || 'Default Education';
+            document.querySelector('#experience-span').innerText = localStorage.getItem('experienceContent') || 'Default Experience';
+            document.querySelector('#skills-span').innerText = localStorage.getItem('skillsContent') || 'Default Skills';
+            document.querySelector('#projects-span').innerHTML = localStorage.getItem('projectsContent') || 'Default Projects';
+            document.querySelector('#references-span').innerHTML = localStorage.getItem('referencesContent') || 'Default References';
+
+            const profileImageData = localStorage.getItem('profileImageData');
+            if (profileImageData) {
+                document.getElementById('profile-image').src = profileImageData;
+            }
+        });
+
+        function printPage() {
+            window.print();
+        }
+    </script>
+</head>
+
+<body>
+
+    <header>
+        <img src="updateimg.png" style="margin-top: 15px; width: 50%;" alt="Profile Image" id="profile-image">
+    </header>
+
+    <section class="uneditable">
+        <h2>Contact Information</h2>
+        <ul>
+            <li><strong>Email:</strong> <span id="email-span"></span></li>
+            <li><strong>Phone:</strong> <span id="phone-span"></span></li>
+            <li><strong>LinkedIn:</strong> <span id="linkedin-span"></span></li>
+            <li><strong>GitHub:</strong> <span id="github-span"></span></li>
+        </ul>
+    </section>
+
+    <section class="uneditable">
+        <h2>Education</h2>
+        <ul>
+            <li><strong>Degree in Computer Science:</strong> <span id="education-span"></span></li>
+        </ul>
+    </section>
+
+    <section class="uneditable">
+        <h2>Experience</h2>
+        <ul>
+            <li>
+                <strong>Web Developer</strong> - Company Name, Location - Date Range
+                <ol>
+                    <li id="experience-span"></li>
+                    <!-- Additional experience items can be added here -->
+                </ol>
+            </li>
+        </ul>
+    </section>
+
+    <section class="uneditable">
+        <h2>Skills</h2>
+        <ul>
+            <li id="skills-span"></li>
+            <!-- Additional skills can be added here -->
+        </ul>
+    </section>
+
+    <section class="uneditable">
+        <h2>Projects</h2>
+        <ul>
+            <li>
+                <strong>Project Name</strong>
+                <p id="projects-span"></p>
+            </li>
+            <!-- Additional projects can be added here -->
+        </ul>
+    </section>
+
+    <section class="uneditable">
+        <h2>References</h2>
+        <p id="references-span"></p>
+    </section>
+    <center>
+    <nav>
+        <button onclick="printPage()" class="btn">Print Resume</button>
+    </nav>
+</center>
+<br>
+</body>
+
+</html>
